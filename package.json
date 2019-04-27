@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "cross-env NODE_ENV=dev supervisor -w bin/www,app/app.js -e node,js,html bin/www",
+    "start": "cross-env NODE_ENV=dev supervisor -w bin/www,app -e node,js,html bin/www",
     "startWebpack": "webpack-dev-server --mode development --hot --progress --color --port 3000 --open"
   },
   "dependencies": {
