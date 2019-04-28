@@ -8,7 +8,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const React = __importStar(require("react"));
-const ReactDOM = __importStar(require("react-dom"));
-const Hello_1 = require("./components/Hello");
-ReactDOM.render(React.createElement(Hello_1.Hello, { compiler: "TypeScript", framework: "React" }), document.getElementById("example"));
-//# sourceMappingURL=app.js.map
+exports.Hello = (props) => React.createElement("h1", null,
+    "Hello from ",
+    props.compiler,
+    " and ",
+    props.framework,
+    "!");
+//# sourceMappingURL=Hello.js.map

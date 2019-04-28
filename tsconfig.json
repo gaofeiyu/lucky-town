@@ -3,6 +3,7 @@
     "module": "commonjs",
     "esModuleInterop": true,
     "target": "es6",
+    "jsx": "react",
     "noImplicitAny": true,
     "moduleResolution": "node",
     "sourceMap": true,
@@ -14,12 +15,12 @@
         "types/*"
       ]
     }
-  },  
-  "include":[  
-      "./public/**/*"  
-  ],  
-  "exclude":[  
+  },
+  "include":[
+      "./public/**/*"
+  ],
+  "exclude":[
       "views",
       "src"
-  ] 
+  ]
 }
