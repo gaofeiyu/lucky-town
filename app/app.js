@@ -8,12 +8,21 @@ const express_1 = __importDefault(require("express"));
 const path_1 = __importDefault(require("path"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const morgan_1 = __importDefault(require("morgan"));
+var webpack = require('webpack'), webpackDevMiddleware = require('webpack-dev-middleware'), webpackHotMiddleware = require('webpack-hot-middleware'), webpackDevConfig = require('../webpack.config.js');
+var compiler = webpack(webpackDevConfig);
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var app = express_1.default();
+// attach to the compiler & the server
+app.use(webpackDevMiddleware(compiler, {
+    // public path should be the same with webpack config
+    publicPath: webpackDevConfig.output.publicPath,
+    hot: true,
+}));
+app.use(webpackHotMiddleware(compiler));
 // view engine setup
-app.engine('jsx', require('express-react-views').createEngine());
-app.set('view engine', 'jsx');
+app.engine('js', require('express-react-views').createEngine());
+app.set('view engine', 'js');
 app.set('views', path_1.default.join(__dirname, 'views'));
 app.use(morgan_1.default('dev'));
 app.use(express_1.default.json());

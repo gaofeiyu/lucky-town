@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "cross-env NODE_ENV=development supervisor -w bin/www,app -e node,js,html bin/www",
+    "start": "cross-env NODE_ENV=development supervisor -w bin/www,app -e node,tsx,ts bin/www",
+    "startw": "webpack-dev-server -d ",
     "build": "webpack -d",
     "startWebpack": "webpack-dev-server --mode development --hot --progress --color --port 3000 --open"
   },
@@ -15,7 +16,10 @@
     "http-errors": "~1.6.2",
     "morgan": "~1.9.0",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "react-router-config": "^5.0.0",
+    "react-router-dom": "^5.0.0",
+    "reload": "^3.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",

@@ -4,14 +4,29 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
+var webpack = require('webpack'),
+webpackDevMiddleware = require('webpack-dev-middleware'),
+webpackHotMiddleware = require('webpack-hot-middleware'),
+webpackDevConfig = require('../webpack.config.js');
+
+var compiler = webpack(webpackDevConfig);
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
 
+// attach to the compiler & the server
+app.use(webpackDevMiddleware(compiler, {
+  // public path should be the same with webpack config
+  publicPath: webpackDevConfig.output.publicPath,
+  hot: true,
+}));
+app.use(webpackHotMiddleware(compiler));
+
 // view engine setup
-app.engine('jsx', require('express-react-views').createEngine());
-app.set('view engine', 'jsx');
+app.engine('js', require('express-react-views').createEngine());
+app.set('view engine', 'js');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(logger('dev'));

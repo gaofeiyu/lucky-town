@@ -11,11 +11,11 @@ var hotMiddlewareScript = 'webpack-hot-middleware/client?reload=true';
 var devConfig = {
   mode: process.env.NODE_ENV,
   entry: {
-    app1: ['./public/src/app.tsx', hotMiddlewareScript]
+    index: ['./public/views/page/index/client.js', hotMiddlewareScript]
   },
   output: {
-    filename: './[name]/bundle.js',
-    path: path.resolve(__dirname, './dist'),
+    filename: './view_module/[name].js',
+    path: path.resolve(__dirname, './app/assets/js/scripts'),
     publicPath: publicPath
   },
   devtool: 'eval-source-map',
@@ -23,10 +23,11 @@ var devConfig = {
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".json"]
   },
+
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.(js|tsx)?$/,
         exclude: /(node_modules)/,
         loader: 'babel-loader'
       },
@@ -45,8 +46,8 @@ var devConfig = {
     ]
   },
   externals: {
-      "react": "React",
-      "react-dom": "ReactDOM"
+      // "react": "React",
+      // "react-dom": "ReactDOM"
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

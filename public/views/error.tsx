@@ -1,8 +1,13 @@
-var React = require('react');
-var PropTypes = require('prop-types');
-var Layout = require('./layout');
+import * as React from "react";
+var Layout = require('./layout/index');
 
-class Index extends React.Component {
+export interface Props {
+  title: string;
+  message: string;
+  error: any;
+}
+
+export default class Error extends React.Component<Props> {
   render() {
     return (
       <Layout title={this.props.title}>
@@ -13,9 +18,3 @@ class Index extends React.Component {
     );
   }
 }
-
-Index.propTypes = {
-  title: PropTypes.string,
-};
-
-module.exports = Index;
