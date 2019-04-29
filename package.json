@@ -36,7 +36,6 @@
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.5",
     "clean-webpack-plugin": "^2.0.1",
-    "consolidate": "^0.15.1",
     "cross-env": "^5.2.0",
     "express-react-views": "^0.11.0",
     "html-webpack-plugin": "^3.2.0",
@@ -48,7 +47,6 @@
     "webpack-cli": "^3.3.1",
     "webpack-dev-middleware": "^3.6.2",
     "webpack-dev-server": "^3.3.1",
-    "webpack-hot-middleware": "^2.24.4",
-    "wepack-cli": "0.0.1-security"
+    "webpack-hot-middleware": "^2.24.4"
   }
 }
