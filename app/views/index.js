@@ -16,7 +16,7 @@ const Body_1 = __importDefault(require("./layout/Body"));
 class Layout extends React.Component {
     render() {
         var { page, title } = this.props;
-        var cmd = 'var __props=' + safeStringify({
+        var cmd = 'var PAGE_DATA=' + safeStringify({
             title: title,
             page: page
         }) + ';';

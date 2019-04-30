@@ -40,7 +40,7 @@ export default class Index extends React.Component<Props, State> {
   render() {
     return (
       <div>
-        <h1>{this.props.title}</h1>
+        <h1>{this.props.initialData.title}</h1>
         <p>Welcome to {this.props.initialData.title}</p>
         <p>
           I can count to 10:

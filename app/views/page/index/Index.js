@@ -32,7 +32,7 @@ class Index extends React.Component {
     }
     render() {
         return (React.createElement("div", null,
-            React.createElement("h1", null, this.props.title),
+            React.createElement("h1", null, this.props.initialData.title),
             React.createElement("p", null,
                 "Welcome to ",
                 this.props.initialData.title),
