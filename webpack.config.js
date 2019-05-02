@@ -8,11 +8,32 @@ var port = (+process.env.PORT + 1) || 3001;
 var publicPath = 'http://localhost:3000/';
 var hotMiddlewareScript = 'webpack-hot-middleware/client?reload=true';
 
+var routeConfig = require('./routeConfig');
+
+/**
+* 动态查找所有入口文件
+*/
+// var glob = require('glob');
+// var files = glob.sync('./public/views/page/*/index.js');
+// var newEntries = {};
+
+// files.forEach(function(f){
+//    var name = /.\/public\/views\/page\/*\/(.*?)\/index\.js/.exec(f)[1];//得到apps/question/index这样的文件名
+//    newEntries[name] = [f,hotMiddlewareScript];
+// });
+
+var entry = {};
+for(var routeKey in routeConfig){
+  if(routeConfig.hasOwnProperty(routeKey)){
+    var routeItem = routeConfig[routeKey];
+    var entryName = routeItem.entry || routeKey;
+    entry[entryName] = ['./public/views/page/' + entryName, hotMiddlewareScript];
+  }
+}
+
 var devConfig = {
   mode: process.env.NODE_ENV,
-  entry: {
-    index: ['./public/views/page/index/client.js', hotMiddlewareScript]
-  },
+  entry: entry,
   output: {
     filename: './view_module/[name].js',
     path: path.resolve(__dirname, './app/assets/js/scripts'),
@@ -20,7 +41,10 @@ var devConfig = {
   },
   devtool: 'eval-source-map',
 
-  resolve: {
+  resolve: {    
+    alias: {
+      public: path.resolve(__dirname, './public')
+    },
     extensions: [".ts", ".tsx", ".js", ".json"]
   },
 

@@ -1,21 +1,23 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import Header from './layout/Header';
 import Body from './layout/Body';
 
 export interface Props{
   title: string;
   page: string;
-  param: any;
+  params: any;
+  entry: string;
 }
 
 export default class Layout extends React.Component<Props> {
 
   render() {
-    var {page, title} = this.props;
+    var {page, title, entry, params} = this.props;
     var cmd = 'var PAGE_DATA=' + safeStringify({
-      title: title,
-      page: page
+      title,
+      page,
+      entry,
+      params
     }) + ';';
     var App = require(page).default;
     return (
@@ -34,7 +36,7 @@ export default class Layout extends React.Component<Props> {
           />
           <script src="https://cdn.bootcss.com/react/16.8.6/umd/react.production.min.js"></script>
           <script src="https://cdn.bootcss.com/react-dom/16.8.6/umd/react-dom.production.min.js"></script>
-          <script src="/view_module/index.js"></script>
+          <script src={`/view_module/${entry}.js`}></script>
         </Body>
       </html>
     );

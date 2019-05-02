@@ -11,8 +11,7 @@ webpackDevConfig = require('../webpack.config.js');
 
 var compiler = webpack(webpackDevConfig);
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var pageRoute = require('./routes/pageRoute');
 
 var app = express();
 
@@ -36,8 +35,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'assets')));
 app.use(express.static(path.join(__dirname, 'src')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', pageRoute);
 
 // catch 404 and forward to error handler
 app.use(function(req: any, res: any, next: any) {

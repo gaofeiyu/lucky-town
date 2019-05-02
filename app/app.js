@@ -10,8 +10,7 @@ const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const morgan_1 = __importDefault(require("morgan"));
 var webpack = require('webpack'), webpackDevMiddleware = require('webpack-dev-middleware'), webpackHotMiddleware = require('webpack-hot-middleware'), webpackDevConfig = require('../webpack.config.js');
 var compiler = webpack(webpackDevConfig);
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var pageRoute = require('./routes/pageRoute');
 var app = express_1.default();
 // attach to the compiler & the server
 app.use(webpackDevMiddleware(compiler, {
@@ -30,8 +29,7 @@ app.use(express_1.default.urlencoded({ extended: false }));
 app.use(cookie_parser_1.default());
 app.use(express_1.default.static(path_1.default.join(__dirname, 'assets')));
 app.use(express_1.default.static(path_1.default.join(__dirname, 'src')));
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', pageRoute);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     next(http_errors_1.default(404));
