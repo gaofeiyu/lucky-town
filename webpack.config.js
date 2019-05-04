@@ -119,11 +119,7 @@ var devConfig = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new ExtractTextPlugin({
-      filename: (getPath) => {
-        console.log('---------------------');
-        console.log(entryCommon(getPath('[name]'), 'css'));
-        // './page/[name]/index.css'
-        
+      filename: (getPath) => {        
         return entryCommon(getPath('[name]'), 'css');
       },
       disable: false,
