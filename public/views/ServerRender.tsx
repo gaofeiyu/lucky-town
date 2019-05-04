@@ -19,15 +19,20 @@ export default class Layout extends React.Component<Props> {
       entry,
       params
     }) + ';';
-    var App = require(page).default;
+    var App = null;
+
+    if(page){
+      App = require(page).default;
+    }
+    
     return (
       <html>
         <Header title={title}>
-          <link rel="stylesheet" href="/stylesheets/style.css" />
+          <link rel="stylesheet" href={`/common/base.css`} />
         </Header>
         <Body>
           <div id="root">
-            <App initialData={this.props}></App>
+            { page? <App initialData={this.props}></App> : this.props.children }
           </div>
           <script
             dangerouslySetInnerHTML={{
@@ -36,7 +41,7 @@ export default class Layout extends React.Component<Props> {
           />
           <script src="https://cdn.bootcss.com/react/16.8.6/umd/react.production.min.js"></script>
           <script src="https://cdn.bootcss.com/react-dom/16.8.6/umd/react-dom.production.min.js"></script>
-          <script src={`/view_module/${entry}.js`}></script>
+          <script src={`/page/${entry}/index.js`}></script>
         </Body>
       </html>
     );

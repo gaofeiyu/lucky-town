@@ -8,7 +8,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const React = __importStar(require("react"));
-var Layout = require('./index');
+var Layout = require('./ServerRender');
 class Error extends React.Component {
     render() {
         return (React.createElement(Layout, { title: this.props.title },

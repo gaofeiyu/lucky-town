@@ -1,5 +1,5 @@
 import * as React from "react";
-var Layout = require('./index');
+var Layout = require('./ServerRender');
 
 export interface Props {
   title: string;
@@ -8,7 +8,7 @@ export interface Props {
 }
 
 export default class Error extends React.Component<Props> {
-  render() {    
+  render() {
     return (
       <Layout title={this.props.title}>
         <h1>{this.props.message}</h1>

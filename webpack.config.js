@@ -2,6 +2,7 @@
 var fs = require('fs');
 var webpack = require('webpack');
 var path = require('path');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var host = (process.env.HOST || 'localhost');
 var port = (+process.env.PORT + 1) || 3001;
 
@@ -26,24 +27,38 @@ var entry = {};
 for(var routeKey in routeConfig){
   if(routeConfig.hasOwnProperty(routeKey)){
     var routeItem = routeConfig[routeKey];
+    if(routeItem === 'disabled') continue;
     var entryName = routeItem.entry || routeKey;
     entry[entryName] = ['./public/views/page/' + entryName, hotMiddlewareScript];
   }
+};
+
+var entryCommon = function(name, ext){
+  var filename = './page/' + name + '/index.' + ext;
+  if(name === 'base'){
+    filename = './common/base.' + ext;
+  }
+  return filename;
 }
+
+entry.base = ['./public/views/common/base.js', hotMiddlewareScript];
 
 var devConfig = {
   mode: process.env.NODE_ENV,
   entry: entry,
   output: {
-    filename: './view_module/[name].js',
-    path: path.resolve(__dirname, './app/assets/js/scripts'),
+    filename: (options) => {
+      return entryCommon(options.chunk.name, 'js');
+    },
+    path: path.resolve(__dirname, './app/public'),
     publicPath: publicPath
   },
   devtool: 'eval-source-map',
 
   resolve: {    
     alias: {
-      public: path.resolve(__dirname, './public')
+      public: path.resolve(__dirname, './public'),
+      styles: path.resolve(__dirname, './public/styles'),
     },
     extensions: [".ts", ".tsx", ".js", ".json"]
   },
@@ -58,14 +73,41 @@ var devConfig = {
       {
         test: /\.(png|jpg)$/,
         use: 'url-loader?limit=8192&context=client&name=[path][name].[ext]'
-      }, {
+      }, 
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [{
+            loader: "css-loader",
+            options: {
+              minimize: true,
+              sourceMap: true
+            }
+          }]
+        })
+      },
+      {
         test: /\.scss$/,
-        use: [
-          'style-loader',
-          'css-loader?sourceMap',
-          'resolve-url-loader',
-          'sass-loader?sourceMap'
-        ]
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: "css-loader",
+            },
+            {
+              loader: "postcss-loader",
+              options: {
+                config: {
+                  path: path.resolve(__dirname, './postcss.config.js')
+                }
+              }
+            }, 
+            {
+              loader: "sass-loader"
+            }
+          ]
+        })
       }
     ]
   },
@@ -75,7 +117,18 @@ var devConfig = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    new ExtractTextPlugin({
+      filename: (getPath) => {
+        console.log('---------------------');
+        console.log(entryCommon(getPath('[name]'), 'css'));
+        // './page/[name]/index.css'
+        
+        return entryCommon(getPath('[name]'), 'css');
+      },
+      disable: false,
+      allChunks: true
+    })
   ]
 };
 

@@ -22,19 +22,21 @@ class Layout extends React.Component {
             entry,
             params
         }) + ';';
-        var App = require(page).default;
+        var App = null;
+        if (page) {
+            App = require(page).default;
+        }
         return (React.createElement("html", null,
             React.createElement(Header_1.default, { title: title },
-                React.createElement("link", { rel: "stylesheet", href: "/stylesheets/style.css" })),
+                React.createElement("link", { rel: "stylesheet", href: `/common/base.css` })),
             React.createElement(Body_1.default, null,
-                React.createElement("div", { id: "root" },
-                    React.createElement(App, { initialData: this.props })),
+                React.createElement("div", { id: "root" }, page ? React.createElement(App, { initialData: this.props }) : this.props.children),
                 React.createElement("script", { dangerouslySetInnerHTML: {
                         __html: cmd,
                     } }),
                 React.createElement("script", { src: "https://cdn.bootcss.com/react/16.8.6/umd/react.production.min.js" }),
                 React.createElement("script", { src: "https://cdn.bootcss.com/react-dom/16.8.6/umd/react-dom.production.min.js" }),
-                React.createElement("script", { src: `/view_module/${entry}.js` }))));
+                React.createElement("script", { src: `/page/${entry}/index.js` }))));
     }
 }
 exports.default = Layout;
