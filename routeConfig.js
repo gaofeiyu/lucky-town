@@ -12,6 +12,10 @@ module.exports = {
         description: '',
         keywords: ''
     },
+    admin: {
+        path: '/admin',
+        title: 'admin',
+    },
     contact: {
         path: '/contact',
         title: 'contact',

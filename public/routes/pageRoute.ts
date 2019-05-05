@@ -8,11 +8,11 @@ var router = express.Router();
 for (var routeKey in routeConfig) {
   if (routeConfig.hasOwnProperty(routeKey)) {
     var routeItem = routeConfig[routeKey];
-    addRoute(routeConfig, routeItem);
+    addRoute(routeItem);
   }
 }
 
-function addRoute(routeConfig: string, routeItem: any):any{
+function addRoute(routeItem: any):any{
   var entryName = routeItem.entry || routeKey;
   router.get(routeItem.path, function (req: any, res: any, next: any) {
     var pageProps: PageProps = {
