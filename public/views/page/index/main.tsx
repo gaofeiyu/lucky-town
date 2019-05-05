@@ -1,55 +1,59 @@
+
 import * as React from "react";
 
-// Contrived example to show how one might use Flow type annotations
-function countTo(n: number): string {
-  var a = [];
-  for (var i = 0; i < n; i++) {
-    a.push(i + 1);
-  }
-  return a.join(', ');
-}
+import { Sidebar } from './widgets/sidebar';
+import { PageContent } from './widgets/pagecontent';
+import { Header } from './widgets/header';
 
-export interface Props {
-  initialData: any;
-  title: string;
-  name: string;
-}
+import * as _ from 'lodash';
 
-export interface State {
-  count: number;
-}
+import { bigpipe } from 'views/lib/bigpipe';
+bigpipe.ready('pagelet.sidebar', (res: any) => {
+  console.log(res);
+})
 
-export default class Index extends React.Component<Props, State> {
+export class Layout extends React.Component<any, any>  {
 
-  count: number = 0;
-
-  constructor(props: Props) {
-    super(props);
+  constructor(props: any, context: any) {
+    super(props, context);
     this.state = {
-      count: 0
-    };
-  }
-
-  handleClick() {
-    console.log('handleClick')
-    this.setState({
-      count: this.state.count + 2,
-    });
+    }
   }
 
   render() {
+    const { data, user } = this.props;
     return (
-      <div>
-        <h1>{this.props.initialData.title}</h1>
-        <p>Welcome to {this.props.initialData.title}</p>
-        <p>
-          I can count to 10:
-          {countTo(10)}
-        </p>
+      <div style={{ height: 'inherit' }}>
+        {/* BEGIN HEADER */}
+        <Header user={user} ref="pageheader" data={data} />
+        {/* END HEADER */}
 
-        <button onClick={this.handleClick.bind(this)}>
-          Click {this.props.name}! Number of clicks: {this.state.count}
-        </button>
+        {/* BEGIN CONTAINER */}
+        <div className="page-container row-fluid">
+          {/* BEGIN SIDEBAR */}
+          <Sidebar ref="sidebar"
+            onProjectSelected={(project: any) => {
+              let pc: any = this.refs.pagecontent;
+              pc.selectProject(project);
+
+
+              let ph: any = this.refs.pageheader;
+              ph.selectProject(project);
+
+            }} onCategorySelected={(project: any, category: string) => {
+              let pc: any = this.refs.pagecontent;
+              pc.selectCategory(project, category);
+            }} user={user} data={data} />
+          {/* END SIDEBAR */}
+
+          {/* BEGIN PAGE CONTAINER*/}
+          <PageContent ref="pagecontent" onDocImpoted={(project: any) => {
+            let sd: any = this.refs.sidebar;
+            sd.reloadProjectList(project.name)
+          }} user={user} data={data} />
+          {/* END PAGE CONTAINER*/}
+        </div>
+
       </div>
     );
   }

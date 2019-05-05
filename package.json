@@ -9,9 +9,14 @@
     "startWebpack": "webpack-dev-server --mode development --hot --progress --color --port 3000 --open"
   },
   "dependencies": {
+    "@types/clipboard": "^2.0.1",
     "@types/lodash": "^4.14.123",
     "@types/moment": "^2.13.0",
+    "@types/q": "^1.5.2",
+    "@types/react-bootstrap": "^0.32.17",
+    "@types/react-select": "^2.0.17",
     "autoprefixer": "^9.5.1",
+    "clipboard": "^2.0.4",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "ejs": "~2.5.7",
@@ -20,10 +25,13 @@
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "morgan": "~1.9.0",
+    "q": "^1.5.1",
     "react": "^16.8.6",
+    "react-bootstrap": "^1.0.0-beta.8",
     "react-dom": "^16.8.6",
     "react-router-config": "^5.0.0",
     "react-router-dom": "^5.0.0",
+    "react-select": "^2.4.3",
     "reload": "^3.0.1"
   },
   "devDependencies": {

@@ -59,6 +59,7 @@ var devConfig = {
     alias: {
       public: path.resolve(__dirname, './public'),
       styles: path.resolve(__dirname, './public/styles'),
+      views: path.resolve(__dirname, './public/views'),
     },
     extensions: [".ts", ".tsx", ".js", ".json"]
   },
