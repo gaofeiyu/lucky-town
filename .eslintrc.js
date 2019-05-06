@@ -21,12 +21,10 @@ module.exports = {
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:vue/recommended"
   ],
   "plugins": [
     "babel",
     "react",
-    "vue"
   ],
   "rules": {
     "strict": "off",
@@ -39,22 +37,17 @@ module.exports = {
 
     // react
     "react/react-in-jsx-scope": "off",
-
-    // vue
-    "vue/require-prop-types": "off",
-    "vue/attributes-order": ["warn", {
-      order: [
-        'DEFINITION',
-        'LIST_RENDERING',
-        'CONDITIONALS',
-        'RENDER_MODIFIERS',
-        'GLOBAL',
-        'UNIQUE',
-        'OTHER_ATTR',
-        'BINDING',
-        'EVENTS',
-        'CONTENT'
-      ]
-    }]
+  },
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [
+          ['public', './public'],
+          ['styles', './public/styles'],
+          ['views', './public/views'],
+        ],
+        extensions: ['.ts', '.js', '.tsx', '.json']
+      }
+    }
   }
 };

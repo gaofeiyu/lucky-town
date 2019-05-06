@@ -10,9 +10,12 @@
     "outDir": "app",
     "baseUrl": ".",
     "paths": {
+      "@root/*": ["public/*"],
+      "@styles/*": ["public/styles/*"],
+      "@views/*": ["public/views/*"],
       "*": [
         "node_modules/*",
-        "types/*"
+        "types/*",
       ]
     }
   },
@@ -20,7 +23,7 @@
       "./public/**/*"
   ],
   "exclude":[
-      "views",
-      "src"
+    "node_modules",
+    "**/*.spec.ts"
   ]
 }

@@ -1,3 +1,3 @@
-const renderClient = require('public/views/ClientRender');
+const renderClient = require('@views/ClientRender');
 const app = require('./main');
 renderClient(app);

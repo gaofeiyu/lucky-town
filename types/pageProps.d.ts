@@ -3,6 +3,8 @@ declare interface PageProps {
   entry: string;
   page: string;
   params?: any;
+  data?: any;
+  user?: any;
 }
 
 export default PageProps;

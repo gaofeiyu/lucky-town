@@ -11,8 +11,6 @@ function countTo(n: number): string {
 
 export interface Props {
   initialData: any;
-  title: string;
-  name: string;
 }
 
 export interface State {
@@ -48,7 +46,7 @@ export default class Index extends React.Component<Props, State> {
         </p>
 
         <button onClick={this.handleClick.bind(this)}>
-          Click {this.props.name}! Number of clicks: {this.state.count}
+          Click Number of clicks: {this.state.count}
         </button>
       </div>
     );

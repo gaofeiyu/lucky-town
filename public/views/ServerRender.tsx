@@ -7,24 +7,28 @@ export interface Props{
   page: string;
   params: any;
   entry: string;
+  data: string;
+  user: string;
 }
 
 export default class Layout extends React.Component<Props> {
 
   render() {
-    var {page, title, entry, params} = this.props;
+    var {page, title, entry, params, data, user} = this.props;
     var cmd = 'var PAGE_DATA=' + safeStringify({
       title,
       page,
       entry,
-      params
+      params,
+      data,
+      user
     }) + ';';
     var App = null;
 
     if(page){
       App = require(page).default;
     }
-    
+
     return (
       <html>
         <Header title={title}>

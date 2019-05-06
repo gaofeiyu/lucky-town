@@ -19,7 +19,11 @@ function addRoute(routeItem: any):any{
       title: routeItem.title,
       entry: `${entryName}`,
       page: `./page/${entryName}/main`,
-      params: req.params || {}
+      params: req.params || {},
+      data: {},
+      user: {
+        username: 'feiyugao'
+      }
     }
     res.render('ServerRender', pageProps);
   });

@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as _ from 'lodash';
 
-export class Header extends React.Component<any, any>  {
+export default class Header extends React.Component<any, any>  {
 
   constructor(props: any, context: any) {
     super(props, context);

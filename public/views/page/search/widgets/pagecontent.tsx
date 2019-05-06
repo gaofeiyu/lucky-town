@@ -3,17 +3,14 @@ import * as React from "react";
 import * as _ from 'lodash';
 import * as moment from 'moment';
 
-import { DocDetail } from 'views/page/index/view/widgets/docdetial';
-import { CookieModal } from 'views/page/index/view/widgets/modal/cookie';
-import { ProjectModal } from 'views/page/index/view/widgets/modal/project';
-import { bigpipe } from 'views/lib/bigpipe';
-
+// import { DocDetail } from 'views/page/index/view/widgets/docdetial';
+// import { CookieModal } from 'views/page/index/view/widgets/modal/cookie';
+// import { ProjectModal } from 'views/page/index/view/widgets/modal/project';
+import { bigpipe } from '@views/lib/bigpipe';
+import Select from 'react-select';
 moment.locale('zh-cn');
-let Select = require('react-select');
 
-var IntervalID: any;
-
-export class PageContent extends React.Component<any, any>  {
+export default class PageContent extends React.Component<any, any>  {
 
   constructor(props: any, context: any) {
     super(props, context);
@@ -54,19 +51,6 @@ export class PageContent extends React.Component<any, any>  {
         selectedProject: opt.value
       })
 
-      $.ajax({
-        url: '/api/getDocs?project=' + opt.value.name
-      })
-        .then((result: any) => {
-          this.setState({
-            docs: result.data.docs
-          })
-
-          var docinput: any = this.refs.docinput;
-          if (docinput) {
-            docinput.focus();
-          }
-        })
     } else {
       this.setState({
         selectedProject: null,
@@ -195,7 +179,6 @@ export class PageContent extends React.Component<any, any>  {
                         <div className="">
                           <div className="user-name text-black">
                             <span className="semi-bold">{item.value.name}</span>
-                            <span className="pull-right">{moment(item.value.lastModified).fromNow()}</span>
                           </div>
                           {
                             item.value.type === 'basic' ?
@@ -235,20 +218,9 @@ export class PageContent extends React.Component<any, any>  {
             </div>
           </div>
           <div className="scontent">
-            {
-              selectedDoc ?
-                <DocDetail
-                  doc={selectedDoc}
-                  project={selectedProject}
-                  setCookie={this.setCookie.bind(this)}
-                />
-                : null
-            }
           </div>
         </div>
 
-        <ProjectModal ref="pm" showSuccessTip={true} />
-        <CookieModal ref="ck" />
       </div>
     );
   }

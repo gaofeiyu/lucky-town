@@ -55,11 +55,11 @@ var devConfig = {
   },
   devtool: 'eval-source-map',
 
-  resolve: {    
+  resolve: {
     alias: {
-      public: path.resolve(__dirname, './public'),
-      styles: path.resolve(__dirname, './public/styles'),
-      views: path.resolve(__dirname, './public/views'),
+      '@root': path.resolve(__dirname, './public'),
+      '@styles': path.resolve(__dirname, './public/styles'),
+      '@views': path.resolve(__dirname, './public/views'),
     },
     extensions: [".ts", ".tsx", ".js", ".json"]
   },
@@ -67,14 +67,14 @@ var devConfig = {
   module: {
     rules: [
       {
-        test: /\.(js|tsx)?$/,
+        test: /\.(js|ts|tsx)?$/,
         exclude: /(node_modules)/,
         loader: 'babel-loader'
       },
       {
         test: /\.(png|jpg)$/,
         use: 'url-loader?limit=8192&context=client&name=[path][name].[ext]'
-      }, 
+      },
       {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({
@@ -103,7 +103,7 @@ var devConfig = {
                   path: path.resolve(__dirname, './postcss.config.js')
                 }
               }
-            }, 
+            },
             {
               loader: "sass-loader"
             }
@@ -120,7 +120,7 @@ var devConfig = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new ExtractTextPlugin({
-      filename: (getPath) => {        
+      filename: (getPath) => {
         return entryCommon(getPath('[name]'), 'css');
       },
       disable: false,

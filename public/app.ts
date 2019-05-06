@@ -1,8 +1,10 @@
+require('module-alias/register');
 import createError from 'http-errors';
 import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
+
 
 var webpack = require('webpack'),
 webpackDevMiddleware = require('webpack-dev-middleware'),
