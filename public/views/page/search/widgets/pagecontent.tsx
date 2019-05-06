@@ -1,12 +1,10 @@
 import * as React from "react";
-
 import * as _ from 'lodash';
 import * as moment from 'moment';
 
-// import { DocDetail } from 'views/page/index/view/widgets/docdetial';
-// import { CookieModal } from 'views/page/index/view/widgets/modal/cookie';
-// import { ProjectModal } from 'views/page/index/view/widgets/modal/project';
-import { bigpipe } from '@views/lib/bigpipe';
+import DocDetail from '@views/page/index/widgets/docdetial';
+import CookieModal from '@views/page/index/widgets/modal/cookie';
+import ProjectModal from '@views/page/index/widgets/modal/project';
 import Select from 'react-select';
 moment.locale('zh-cn');
 
@@ -21,11 +19,6 @@ export default class PageContent extends React.Component<any, any>  {
   }
 
   componentDidMount() {
-    bigpipe.ready('notice/feedback', (data: any) => {
-      this.setState({
-        noticevisited: data.visited
-      })
-    })
   }
 
   setCookie(project: any) {
@@ -51,6 +44,19 @@ export default class PageContent extends React.Component<any, any>  {
         selectedProject: opt.value
       })
 
+      $.ajax({
+        url: '/api/getDocs?project=' + opt.value.name
+      })
+        .then((result: any) => {
+          this.setState({
+            docs: result.data.docs
+          })
+
+          var docinput: any = this.refs.docinput;
+          if (docinput) {
+            docinput.focus();
+          }
+        })
     } else {
       this.setState({
         selectedProject: null,
@@ -104,16 +110,20 @@ export default class PageContent extends React.Component<any, any>  {
     })
   }
 
+
   render() {
     const { selectedProject, selectedDoc, docs, noticevisited } = this.state;
+
     const { user, data } = this.props;
+
     let rows: any = [];
+
     var projectsOption = _.map(data, (item: any) => {
       return {
         value: item,
         label: item.name
       }
-    });
+    })
 
     var docsOption: any = _.map(docs, function (doc: any) {
       return {
@@ -121,7 +131,6 @@ export default class PageContent extends React.Component<any, any>  {
         label: doc.name
       }
     });
-
     return (
       <div className="page-content">
         <div className="content">
@@ -179,6 +188,7 @@ export default class PageContent extends React.Component<any, any>  {
                         <div className="">
                           <div className="user-name text-black">
                             <span className="semi-bold">{item.value.name}</span>
+                            <span className="pull-right">{moment.unix(item.value.lastModified).fromNow()}</span>
                           </div>
                           {
                             item.value.type === 'basic' ?
@@ -202,25 +212,36 @@ export default class PageContent extends React.Component<any, any>  {
             </div>
             <div className="si text-center">
               <a href="/notice/feedback" className="apidoc-tip-container">活动公告
-                        {
+                      {
                   noticevisited ? null : <span className="badge badge-important apidoc-tip">&nbsp;</span>
                 }
               </a>
               <a href="javascript:;" onClick={this.createProject.bind(this)}>创建项目</a>
               <a href="/mydoc">我的项目</a>
-              <a href="http://km.oa.com/articles/show/376293" target="_blank">帮助文档</a>
+              <a href="http://apidoc.oa.com/doc?project=APIDOC&group=%E5%BC%80%E5%A7%8B%E4%BD%BF%E7%94%A8apidoc&version=1.0" target="_blank">帮助文档</a>
               <a href="/admin" className="apidoc-tip-container" target="_blank">
                 数据统计
-                            {
+                          {
                   noticevisited ? null : <span className="badge badge-important apidoc-tip">&nbsp;</span>
                 }
               </a>
             </div>
           </div>
           <div className="scontent">
+            {
+              selectedDoc ?
+                <DocDetail
+                  doc={selectedDoc}
+                  project={selectedProject}
+                  setCookie={this.setCookie.bind(this)}
+                />
+                : null
+            }
           </div>
         </div>
 
+        <ProjectModal ref="pm" showSuccessTip={true} />
+        <CookieModal ref="ck" />
       </div>
     );
   }

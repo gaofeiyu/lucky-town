@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "module": "commonjs",
     "esModuleInterop": true,
     "target": "es6",
@@ -9,6 +10,15 @@
     "sourceMap": true,
     "outDir": "app",
     "baseUrl": ".",
+    "lib": [
+      "dom",
+      "es5",
+      "scripthost",
+      "es2015.promise",
+      "es2015.core",
+      "es2015.collection",
+      "es2017"
+    ],
     "paths": {
       "@root/*": ["public/*"],
       "@styles/*": ["public/styles/*"],
