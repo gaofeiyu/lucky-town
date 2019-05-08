@@ -1,0 +1,52 @@
+.search-area {
+  margin: 160px auto 0;
+  width: 800px;
+  display: block;
+}
+
+.scontent {
+  width: 1024px;
+  margin: 0 auto;
+  margin-bottom: 100px;
+}
+
+.scontent .tile {
+  border: 1px solid #ddd;
+}
+
+
+.search-area .domain-area {
+  display: inline-block;
+  width: 240px;
+}
+
+.search-area .doc-area {
+  display: inline-block;
+  width: 500px;
+}
+
+.logo-name {
+  font-family: Consolas, SimHei, sans-serif;
+  font-size: 30px;
+  color: #1084d4;
+}
+
+.st .logo-name2 {
+  font-size: 46px;
+  font-style: oblique;
+}
+
+.st , .si {
+  margin: 20px 0;
+}
+.si a {
+  margin: 0 20px;
+  border-bottom: 1px solid;
+}
+.Select-menu-outer {
+z-index: 999 !important;
+}
+
+.scontent .input-group .theurlininfo {
+  width: 360px;
+}

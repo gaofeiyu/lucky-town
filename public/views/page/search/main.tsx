@@ -8,7 +8,6 @@ export default class Search extends React.Component<any, any>  {
 
   constructor(props: any, context: any) {
     super(props, context);
-    console.log(this.props);
     this.state = {
     }
   }
@@ -16,7 +15,7 @@ export default class Search extends React.Component<any, any>  {
   render() {
     const { data, user } = this.props.initialData;
     return (
-      <div style={{ height: 'inherit' }}>
+      <div id="pageRoot" className="breakpoint-1024 pace-done hide-sidebar" style={{ height: 'inherit' }}>
         {/* BEGIN HEADER */}
         <Header user={user} />
         {/* END HEADER */}

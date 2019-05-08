@@ -33,6 +33,9 @@ export default class Layout extends React.Component<Props> {
       <html>
         <Header title={title}>
           <link rel="stylesheet" href={`/common/base.css`} />
+          {
+            entry ? <link rel="stylesheet" href={`/page/${entry}/index.css`} /> : null
+          }
         </Header>
         <Body>
           <div id="root">
@@ -45,7 +48,9 @@ export default class Layout extends React.Component<Props> {
           />
           <script src="https://cdn.bootcss.com/react/16.8.6/umd/react.production.min.js"></script>
           <script src="https://cdn.bootcss.com/react-dom/16.8.6/umd/react-dom.production.min.js"></script>
-          <script src={`/page/${entry}/index.js`}></script>
+          {
+            entry ? <script src={`/page/${entry}/index.js`}></script> : null
+          }
         </Body>
       </html>
     );

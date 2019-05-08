@@ -72,8 +72,17 @@ var devConfig = {
         loader: 'babel-loader'
       },
       {
-        test: /\.(png|jpg)$/,
+        test: /\.(png|jpg|gif)$/,
         use: 'url-loader?limit=8192&context=client&name=[path][name].[ext]'
+      },
+      {
+        test: /\.svg$/,
+        exclude: /(fonts)/,
+        use: [{
+          loader: 'svg-url-loader',
+        }, {
+          loader: 'svgo-loader'
+        }]
       },
       {
         test: /\.css$/,
@@ -87,6 +96,10 @@ var devConfig = {
             }
           }]
         })
+      },
+      {
+        test: /\.(ttf|eot|woff|woff2|svg)?$/,
+        loader: 'file-loader'
       },
       {
         test: /\.scss$/,
